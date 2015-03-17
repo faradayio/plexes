@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Plexes</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.2/paper/bootstrap.min.css" rel="stylesheet">
+  </head>
+  <body>
+    
+    <div id="jumbo" class="container">
+      <div class="jumbotron">
+        <h1>Plexes</h1>
+        <h3 class="text-muted">A selection of RT records where a large number of units is associated with a single address</h3>
+      </div>
+      <hr>
+    </div>
+
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="sites.js"></script>
+    <script>
+      //build the container and components from sites.js
+      for (var i = 0; i < sites.length; i++) {
+        var row = $('<div></div>')
+          .attr('class','row')
+          .attr('id', sites[i].id)
+          .appendTo($('#jumbo'));
+
+        var streetView = '<div class="col-md-4"><img class="img-responsive" src="https://maps.googleapis.com/maps/api/streetview?size=600x400&location=' + sites[i].address + '"></img></div>';
+
+        var mapView = '<div class="col-md-4"><img class="img-responsive" src="https://maps.googleapis.com/maps/api/staticmap?center=' + sites[i].address + '&zoom=19&size=600x400&maptype=hybrid&markers=color:0xe9d362' + sites[i].address + '"></img></div>';
+
+        var infoText = '<div class="col-md-4"><h3>RT ID# ' + sites[i].id + '</h3><h4><a href="https://www.google.com/maps/place/' + sites[i].address + '" target="_blank">' + sites[i].address + '</a></h4><hr><h4><strong>' + sites[i].count + '</strong> units reported at this address</h4></div>';
+
+        row.append(
+          [streetView, mapView, infoText]
+        );
+
+        $('#jumbo').append('<hr>')
+
+        
+      };
+    </script>
+  </body>
+</html>
